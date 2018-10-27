@@ -1,10 +1,4 @@
-const repeatString = function (string, numberOfTimes) {
-  let result = "";
-  for (let position=0; position<numberOfTimes; position++) {
-    result += string;
-  }
-  return result;
-}
+const {repeatString, alignRight, alignCentre, generateLine} = require ('./patternsUtil.js');
 
 const generateFilledRectangle = function (length,breadth) {
   let result = "";
@@ -51,12 +45,11 @@ const typesOfRectangle = {
   "alternating": generateAlternatingRectangle,
 }
 
-const invalidInputFn = function() {
-    return "invalid user input provided"
-}
-
-const generateRectangle = function (type, length, breadth) {
-  let drawRectangle = typesOfRectangle[type] || invalidInputFn;
+const generateRectangle = function (parameters) {
+  let typeOfRectangle = parameters['type'];
+  let length = parameters['length'];
+  let breadth = parameters['breadth'];
+  let drawRectangle = typesOfRectangle[typeOfRectangle]; 
   return drawRectangle(length, breadth);
 }
 
@@ -68,12 +61,6 @@ const generateLATriangle = function (height) {
     delimiter = "\n";
   }
   return result;
-}
-
-const alignRight = function (length,string) {
-  let  numberOfSpaces = length - string.length;
-  let alignedString = repeatString(" ",numberOfSpaces) + string;
-  return alignedString;
 }
 
 const generateRATriangle = function (height) {
@@ -92,25 +79,11 @@ const typesOfTriangle = {
   "right" : generateRATriangle,
 }
 
-const generateTriangle = function (typeOfTriangle, heightOfTriangle) {
-  let drawTriangle = typesOfTriangle[typeOfTriangle] ||invalidInputFn;
+const generateTriangle = function (parameters) {
+  let typeOfTriangle = parameters.type;
+  let heightOfTriangle = parameters.height;
+  let drawTriangle = typesOfTriangle[typeOfTriangle];
   return drawTriangle(heightOfTriangle);
-}
-
-const alignCentre = function (text, length) {
-  let numOfSpaces = (length - text.length)/2;
-  let result = repeatString(" ", numOfSpaces);
-  result = result + text + repeatString(" ", numOfSpaces);
-  return result;
-}
-
-const generateLine = function (length, leftChar, middleChar, rightChar) {
-  let leftBorder = 1 % (length + 1);
-  let rightBorder = 1 % length;
-  let leftPart = repeatString(leftChar, leftBorder);
-  let middlePart = repeatString(middleChar, length-2);
-  let rightPart = repeatString(rightChar, rightBorder);
-  return leftPart + middlePart + rightPart;
 }
 
 const generateFilledDiamond = function (height) {
@@ -170,8 +143,10 @@ typesOfDiamond = {"filled" :generateFilledDiamond,
                   "hollow" :generateHollowDiamond, 
                   "angled":generateAngledDiamond}
 
-const generateDiamond = function (typeOfdiamond, heightOfDiamond) {
-  let drawDiamond = typesOfDiamond[typeOfdiamond] || invalidInputFn;
+const generateDiamond = function (parameters) {
+  let heightOfDiamond = parameters.height;
+  let typeOfDiamond = parameters.type;
+  let drawDiamond = typesOfDiamond[typeOfDiamond]; 
   let height = heightOfDiamond;
   if (heightOfDiamond % 2 == 0) {
     height = heightOfDiamond + 1;

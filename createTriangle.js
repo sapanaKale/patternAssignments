@@ -1,10 +1,8 @@
-const library = require ('./patternsLibrary.js');
-const generateTriangle = library.generateTriangle;
+const { generateTriangle } = require ('./src/patternsLibrary.js');
+const { extractParameters } = require ('./src/patternsUtil.js');
 
 const main = function () {
-  let typeOfTriangle = process.argv[2];
-  let heightOfTriangle = process.argv[3];
-  console.log(generateTriangle(typeOfTriangle, heightOfTriangle));
+  console.log(generateTriangle(extractParameters(process.argv)));
 }
 
 main();
