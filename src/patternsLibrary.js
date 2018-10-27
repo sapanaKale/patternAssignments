@@ -1,42 +1,27 @@
 const {repeatString, alignRight, alignCentre, generateLine} = require ('./patternsUtil.js');
 
 const generateFilledRectangle = function (length,breadth) {
-  let result = "";
-  let delimiter = "";
-  for (let position=0; position<breadth; position++) {
-    result += delimiter + repeatString('*',length);
-    delimiter = "\n";
-  }
+  let result = new Array(breadth).fill(repeatString('*',length)).join("\n");
   return result;
 }
 
 const generateEmptyRectangle = function (length,breadth) {
-  let result = "";
-  if (breadth >=1) {
-    result = repeatString('*',length);
+  let result = new Array(breadth).fill(repeatString('*',length));
+  for (let position=1; position<breadth-1; position++) {
+    result[position] = generateLine(length,'*',' ','*');
   }
-  let delimiter = "\n";
-  for (let position=0; position<breadth-2; position++) {
-    result += delimiter + "*" + repeatString(' ',length-2) + "*";
-  }
-  if (breadth >=2) {
-    result += delimiter + repeatString('*',length);
-  }
-  return result;
+  result[result.length-1] = repeatString('*',length);
+  return result.join("\n");
 }
 
 const generateAlternatingRectangle = function (length,breadth) {
-  let result = "";
-  let delimiter = "";
-  for (let position=0; position<breadth; position++) {
-    result += delimiter + repeatString('#',length);
-    delimiter = "\n";
-    position++;
-    if (position % 2 == 0 || position < breadth) {
-      result += delimiter + repeatString('*',length);
+  let result = new Array(breadth).fill(repeatString('#',length));;
+  result.forEach(function(element,index) {
+    if(index % 2 == 1) {
+      result[index] = repeatString('*',length);
     }
-  }
-  return result;
+  });
+  return result.join("\n");
 }
 
 const typesOfRectangle = {
