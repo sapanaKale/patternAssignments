@@ -42,9 +42,9 @@ const testGenerateTriangle = function (parameters,expectedOutput) {
   //increaseSerialNumber();
 }
 
-let left_2 = '*\n**';
+let left_2 = '* \n**';
 testGenerateTriangle({'type':"left",'height':2},left_2);
-let left_3 = '*\n**\n***';
+let left_3 = '*  \n** \n***';
 testGenerateTriangle({'type':"left",'height':3},left_3);
 let right_2 = ' *\n**';
 testGenerateTriangle({'type':"right",'height':2},right_2);
