@@ -12,6 +12,12 @@ const alignRight = function (length,string) {
   return alignedString;
 }
 
+const alignLeft = function (length,string) {
+  let numberOfSpaces = length - string.length;
+  let alignedString = string + repeatString(" ",numberOfSpaces);
+  return alignedString;
+}
+
 const alignCentre = function (text, length) {
   let numOfSpaces = (length - text.length)/2;
   let result = repeatString(" ", numOfSpaces);
@@ -36,6 +42,7 @@ const extractParameters = function (userArgs) {
   return {'type':type,'length':length,'height':height,'breadth':breadth};
 }
 
+exports.alignLeft = alignLeft;
 exports.extractParameters = extractParameters;
 exports.repeatString = repeatString;
 exports.alignRight = alignRight;
