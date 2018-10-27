@@ -1,8 +1,7 @@
-const {repeatString, alignRight, alignCentre, generateLine} = require ('./patternsUtil.js');
+const {repeatString, alignRight, alignLeft, alignCentre, generateLine} = require ('./patternsUtil.js');
 
 const generateFilledRectangle = function (length,breadth) {
-  let result = new Array(breadth).fill(repeatString('*',length)).join("\n");
-  return result;
+  return new Array(breadth).fill(repeatString('*',length)).join("\n");
 }
 
 const generateEmptyRectangle = function (length,breadth) {
@@ -15,7 +14,7 @@ const generateEmptyRectangle = function (length,breadth) {
 }
 
 const generateAlternatingRectangle = function (length,breadth) {
-  let result = new Array(breadth).fill(repeatString('#',length));;
+  let result = new Array(breadth).fill(repeatString('#',length));
   result.forEach(function(element,index) {
     if(index % 2 == 1) {
       result[index] = repeatString('*',length);
@@ -39,24 +38,25 @@ const generateRectangle = function (parameters) {
 }
 
 const generateLATriangle = function (height) {
-  let result = "";
-  let delimiter = "";
-  for (let position=0; position<height; position++) {
-    result += delimiter + repeatString("*",position+1);
-    delimiter = "\n";
-  }
-  return result;
+  let result = new Array(height).fill("");
+  let count = 1;
+  result = result.map(function (element){
+    element = alignLeft(height,repeatString('*',count));
+    count++;
+    return element;
+  });
+  return result.join("\n");
 }
 
 const generateRATriangle = function (height) {
-  let result = "";
-  let delimiter = "";
-  for (let position=0; position<height; position++) {
-   let line = repeatString("*",position+1);
-   result += delimiter + alignRight(height,line);
-   delimiter = "\n";
-  }
-  return result;
+  let result = new Array(height).fill("");
+  let count = 1;
+  result = result.map(function (element) {
+    element = alignRight(height,repeatString('*',count));
+    count++;
+    return element;
+  });
+  return result.join("\n");
 }
 
 const typesOfTriangle = {
