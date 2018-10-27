@@ -3,14 +3,14 @@ const {generateRectangle,generateTriangle,generateDiamond} = require ('../src/pa
 const {logTestCase, getSerialNumber, increaseSerialNumber} = require ('./frameworkForTestfile.js');
 
 const testGenerateRectangle = function (parameters,expectedOutput) {
-  let args = parameters.type+"_"+parameters.length+"_"+parameters.breadth;
-  let pattern = "rectangle";
-  let number = getSerialNumber();
+  //let args = parameters.type+"_"+parameters.length+"_"+parameters.breadth;
+  //let pattern = "rectangle";
+  //let number = getSerialNumber();
   let actualOutput = generateRectangle(parameters);
-  increaseSerialNumber();
-  logTestCase(number,pattern,args,expectedOutput,actualOutput);
+  //increaseSerialNumber();
+  //logTestCase(number,pattern,args,expectedOutput,actualOutput);
   assert.deepEqual(actualOutput,expectedOutput);
-  increaseSerialNumber();
+  //increaseSerialNumber();
 }
 
 let filled_10_7 = '**********\n**********\n**********\n**********\n**********\n**********\n**********';
@@ -33,13 +33,13 @@ let alternating_2_2 = '##\n**';
 testGenerateRectangle({'type':"alternating",'length':2,'breadth':2},alternating_2_2);
 
 const testGenerateTriangle = function (parameters,expectedOutput) {
-  let number = getSerialNumber();
-  let pattern = "triangle";
-  let args = parameters.type+'_'+parameters.height;
+  //let number = getSerialNumber();
+  //let pattern = "triangle";
+  //let args = parameters.type+'_'+parameters.height;
   let actualOutput = generateTriangle(parameters);
-  logTestCase(number,pattern,args,actualOutput,expectedOutput);
+  //logTestCase(number,pattern,args,actualOutput,expectedOutput);
   assert.deepEqual(actualOutput,expectedOutput);
-  increaseSerialNumber();
+  //increaseSerialNumber();
 }
 
 let left_2 = '*\n**';
@@ -53,13 +53,13 @@ testGenerateTriangle({'type':"right",'height':3},right_3);
 
 
 const testGenerateDiamond= function (parameters,expectedOutput) {
-  let number = getSerialNumber();
-  let pattern = "diamond";
-  let args = parameters.type+'_'+parameters.height;
+  //let number = getSerialNumber();
+  //let pattern = "diamond";
+  //let args = parameters.type+'_'+parameters.height;
   let actualOutput = generateDiamond(parameters);
-  logTestCase(number,pattern,args,expectedOutput,actualOutput);
+  //logTestCase(number,pattern,args,expectedOutput,actualOutput);
   assert.deepEqual(actualOutput,expectedOutput);
-  increaseSerialNumber();
+  //increaseSerialNumber();
 }
 
 let filled_2 = ' * \n***\n * ';
@@ -80,3 +80,5 @@ let angled_3 = ' * \n* *\n * ';
 testGenerateDiamond({'type':"angled",'height':3},angled_3);
 let angled_4 = '  *  \n / \\ \n*   *\n \\ / \n  *  ';
 testGenerateDiamond({'type':"angled",'height':4},angled_4);
+
+console.log('all tests are passed');

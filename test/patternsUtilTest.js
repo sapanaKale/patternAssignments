@@ -43,17 +43,8 @@ const testExtractParameters = function (userArgs, expectedOutput) {
   assert.deepEqual(actualOutput,expectedOutput);
 }
 
-let userArgs = [1,2,3,4,5,6,7];
-testExtractParameters(userArgs,{'type':3,'length':4,'height':4,'breadth':5});
-
-userArgs[2] = 'filled';
-userArgs[3] = 1;
-userArgs[4] = 5;
-testExtractParameters(userArgs,{'type':'filled','length':1,'height':1,'breadth':5});
-
-userArgs[2] = 'left';
-userArgs[3] = '3';
-userArgs[4] = '4';
-testExtractParameters(userArgs,{'type':'left','length':3,'height':3,'breadth':4});
+testExtractParameters([1,2,3,4,5,6],{'type':3,'length':4,'height':4,'breadth':5});
+testExtractParameters([,,"filled",1,5,],{'type':'filled','length':1,'height':1,'breadth':5});
+testExtractParameters([,,"left",'3','4',,],{'type':'left','length':3,'height':3,'breadth':4});
 
 console.log('all tests are passed');
