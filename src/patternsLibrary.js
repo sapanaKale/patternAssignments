@@ -72,56 +72,42 @@ const generateTriangle = function (parameters) {
 }
 
 const generateFilledDiamond = function (height) {
-  let result = "";
-  let delimiter = "";
+  let result = [];
   for (let rowLength=1; rowLength<height; rowLength+=2) {
-    let line = alignCentre(repeatString('*',rowLength),height);
-    result = result + delimiter + line;
-    delimiter = "\n";
+    result.push(alignCentre(repeatString('*',rowLength),height));
   }
   for (let rowLength=height; rowLength>=1; rowLength-=2) {
-    let line = alignCentre(repeatString('*',rowLength),height);
-    result = result + delimiter + line;
-    delimiter = "\n";
+    result.push(alignCentre(repeatString('*',rowLength),height));
   }
-  return result;
+  return result.join("\n");
 }
 
 const generateHollowDiamond = function (height) {
-  let result = "";
-  let delimiter = "";
+  let result = [];
   for (let rowLength=1; rowLength<height; rowLength+=2) {
-    let line = alignCentre(generateLine(rowLength,'*',' ','*'),height);
-    result = result + delimiter + line;
-    delimiter = "\n";
+    result.push(alignCentre(generateLine(rowLength,'*',' ','*'),height));
   }
   for (let rowLength=height; rowLength>=1; rowLength-=2) {
-    let line = alignCentre(generateLine(rowLength,'*',' ','*'),height);
-    result = result + delimiter + line;
-    delimiter = "\n";
+    result.push(alignCentre(generateLine(rowLength,'*',' ','*'),height));
   }
-  return result;
+  return result.join("\n");
 }
 
 const generateAngledDiamond = function (height) {
-  let result = alignCentre(repeatString("*",1),height);
-  let delimiter = "\n";
+  let result = [alignCentre(repeatString("*",1),height)];
   for (let rowLength=3; rowLength<height; rowLength+=2) {
-    let line = alignCentre(generateLine(rowLength,'/',' ','\\'),height);
-    result = result + delimiter + line;
+    result.push(alignCentre(generateLine(rowLength,'/',' ','\\'),height));
   }
   if (height > 1) {
-    result = result + delimiter + generateLine(height,'*',' ','*');
+    result.push(generateLine(height,'*',' ','*'));
   }
   for (let rowLength=height-2; rowLength>1; rowLength-=2) {
-    let line = alignCentre(generateLine(rowLength,'\\',' ','/'),height);
-    result = result + delimiter + line;
-    delimiter = "\n";
+    result.push(alignCentre(generateLine(rowLength,'\\',' ','/'),height));
   }
   if(height > 1) {
-    result = result + delimiter + alignCentre(repeatString("*",1),height);
+    result.push(alignCentre(repeatString("*",1),height));
   }
-  return result;
+  return result.join("\n");
 }
 
 typesOfDiamond = {"filled" :generateFilledDiamond, 
