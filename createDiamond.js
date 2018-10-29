@@ -1,8 +1,8 @@
 const { generateDiamond } = require ('./src/patternsLibrary.js');
-const { extractParameters } = require ('./src/patternsUtil.js');
+const { extractParameters, convertToString } = require ('./src/patternsUtil.js');
 
 const main = function () {
-  console.log(generateDiamond(extractParameters(process.argv)));
+  console.log(convertToString(generateDiamond(extractParameters(process.argv))));
 }
 
 main();

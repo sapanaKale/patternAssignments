@@ -41,11 +41,9 @@ const zipArray = function (source1,source2) {
 }
 
 const justifyOutput = function (actualOutput,expectedOutput) {
-  let expected = expectedOutput.split("\n");
-  for (let index=0; index<expected.length; index++) {expected[index] = justify(expected[index],30); }
-  let actual = actualOutput.split("\n");
-  for (let index=0; index<actual.length; index++) {actual[index] = justify(actual[index],30)}
-  let outputArray = zipArray(actual,expected);
+  for (let index=0; index<expectedOutput.length; index++) {expectedOutput[index] = justify(expectedOutput[index],30); }
+  for (let index=0; index<actualOutput.length; index++) {actualOutput[index] = justify(actualOutput[index],30)}
+  let outputArray = zipArray(actualOutput,expectedOutput);
   let output = outputArray[0].join(" | ") + " |";
   let delimiter = repeatCharacter(" ",51);
   for (let index=1; index<outputArray.length; index++) { output = output + "\n" + delimiter + outputArray[index].join("   ") };

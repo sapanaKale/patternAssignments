@@ -42,6 +42,11 @@ const extractParameters = function (userArgs) {
   return {'type':type,'length':length,'height':height,'breadth':breadth};
 }
 
+const convertToString = function (array) {
+  return array.join("\n");
+}
+
+exports.convertToString = convertToString;
 exports.alignLeft = alignLeft;
 exports.extractParameters = extractParameters;
 exports.repeatString = repeatString;

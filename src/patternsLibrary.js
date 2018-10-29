@@ -1,7 +1,7 @@
 const {repeatString, alignRight, alignLeft, alignCentre, generateLine} = require ('./patternsUtil.js');
 
 const generateFilledRectangle = function (length,breadth) {
-  return new Array(breadth).fill(repeatString('*',length)).join("\n");
+  return new Array(breadth).fill(repeatString('*',length));
 }
 
 const generateEmptyRectangle = function (length,breadth) {
@@ -10,7 +10,7 @@ const generateEmptyRectangle = function (length,breadth) {
     result[position] = generateLine(length,'*',' ','*');
   }
   result[result.length-1] = repeatString('*',length);
-  return result.join("\n");
+  return result;
 }
 
 const generateAlternatingRectangle = function (length,breadth) {
@@ -20,7 +20,7 @@ const generateAlternatingRectangle = function (length,breadth) {
       result[index] = repeatString('*',length);
     }
   });
-  return result.join("\n");
+  return result;
 }
 
 const typesOfRectangle = {
@@ -45,7 +45,7 @@ const generateLATriangle = function (height) {
     count++;
     return element;
   });
-  return result.join("\n");
+  return result;
 }
 
 const generateRATriangle = function (height) {
@@ -56,7 +56,7 @@ const generateRATriangle = function (height) {
     count++;
     return element;
   });
-  return result.join("\n");
+  return result;
 }
 
 const typesOfTriangle = {
@@ -79,7 +79,7 @@ const generateFilledDiamond = function (height) {
   for (let rowLength=height; rowLength>=1; rowLength-=2) {
     result.push(alignCentre(repeatString('*',rowLength),height));
   }
-  return result.join("\n");
+  return result;
 }
 
 const generateHollowDiamond = function (height) {
@@ -90,7 +90,7 @@ const generateHollowDiamond = function (height) {
   for (let rowLength=height; rowLength>=1; rowLength-=2) {
     result.push(alignCentre(generateLine(rowLength,'*',' ','*'),height));
   }
-  return result.join("\n");
+  return result;
 }
 
 const generateAngledDiamond = function (height) {
@@ -107,7 +107,7 @@ const generateAngledDiamond = function (height) {
   if(height > 1) {
     result.push(alignCentre(repeatString("*",1),height));
   }
-  return result.join("\n");
+  return result;
 }
 
 typesOfDiamond = {"filled" :generateFilledDiamond, 

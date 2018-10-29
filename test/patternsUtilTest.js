@@ -1,5 +1,5 @@
 const assert = require ('assert');
-const { repeatString, alignRight, alignCentre, generateLine, extractParameters } = require ('../src/patternsUtil.js');
+const { repeatString, alignLeft, alignRight, alignCentre, generateLine, convertToString, extractParameters } = require ('../src/patternsUtil.js');
 
 const testRepeatString = function (character, times, expectedOutput) {
   let actualOutput = repeatString(character, times);
@@ -9,6 +9,15 @@ const testRepeatString = function (character, times, expectedOutput) {
 testRepeatString("*",1,'*');
 testRepeatString("*",3,'***');
 testRepeatString("*",6,'******');
+
+const testAlignLeft = function (length, text, expectedOutput) {
+  let actualOutput = alignLeft(text,length);
+  assert.deepEqual(actualOutput,expectedOutput);
+}
+
+testAlignLeft("*",1,"*");
+testAlignLeft("*",2,"* ");
+testAlignLeft("**",4,"**  ");
 
 const testAlignRight = function (length, text, expectedOutput) {
   let actualOutput = alignRight(length, text);
@@ -46,5 +55,14 @@ const testExtractParameters = function (userArgs, expectedOutput) {
 testExtractParameters([1,2,3,4,5,6],{'type':3,'length':4,'height':4,'breadth':5});
 testExtractParameters([,,"filled",1,5,],{'type':'filled','length':1,'height':1,'breadth':5});
 testExtractParameters([,,"left",'3','4',,],{'type':'left','length':3,'height':3,'breadth':4});
+
+const testConvertToString = function (array,expectedOutput) {
+  let actualOutput = convertToString(array);
+  assert.deepEqual(actualOutput,expectedOutput);
+}
+
+testConvertToString(['*','*','*'],"*\n*\n*");
+testConvertToString(['* ','**'],"* \n**");
+testConvertToString(['* *','* *'],"* *\n* *");
 
 console.log('all tests are passed');
