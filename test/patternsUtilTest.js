@@ -1,5 +1,5 @@
 const assert = require ('assert');
-const { repeatString, alignLeft, alignRight, alignCentre, generateLine, convertToString, extractParameters } = require ('../src/patternsUtil.js');
+const { repeatString, alignLeft, alignRight, alignCentre, generateLine, convertToString, extractParameters, extractMultipleParameters } = require ('../src/patternsUtil.js');
 
 const testRepeatString = function (character, times, expectedOutput) {
   let actualOutput = repeatString(character, times);
@@ -52,9 +52,9 @@ const testExtractParameters = function (userArgs, expectedOutput) {
   assert.deepEqual(actualOutput,expectedOutput);
 }
 
-testExtractParameters([1,2,3,4,5,6],{'type':3,'length':4,'height':4,'breadth':5});
-testExtractParameters([,,"filled",1,5,],{'type':'filled','length':1,'height':1,'breadth':5});
-testExtractParameters([,,"left",'3','4',,],{'type':'left','length':3,'height':3,'breadth':4});
+testExtractParameters([3,4,5,6],{'type':3,'length':4,'height':4,'breadth':5});
+testExtractParameters(["filled",1,5,],{'type':'filled','length':1,'height':1,'breadth':5});
+testExtractParameters(["left",'3','4',,],{'type':'left','length':3,'height':3,'breadth':4});
 
 const testConvertToString = function (array,expectedOutput) {
   let actualOutput = convertToString(array);
@@ -64,5 +64,24 @@ const testConvertToString = function (array,expectedOutput) {
 testConvertToString(['*','*','*'],"*\n*\n*");
 testConvertToString(['* ','**'],"* \n**");
 testConvertToString(['* *','* *'],"* *\n* *");
+
+const testExtractMultipleParameters = function (userArgs,expectedOutput) {
+  let actualOutput = extractMultipleParameters(userArgs);
+  assert.deepEqual(actualOutput,expectedOutput);
+}
+
+testExtractMultipleParameters(['filled_rectangle',2,2],
+                              ["normal",
+                               {'type':'filled_rectangle','length':2,'height':2,'breadth':2}]);
+ 
+testExtractMultipleParameters(['filled_rectangle',2,2,'left_triangle',2],
+                              ["normal",
+                               {'type':'filled_rectangle','length':2,'height':2,'breadth':2},
+                               {'type':'left_triangle','length':2,'height':2,'breadth':undefined}]);
+
+testExtractMultipleParameters(['flip','left_triangle',3,'right_triangle',3],
+                              ["flip",
+                              {'type':'left_triangle','height':3},
+                              {'type':'right_triangle','height':3}]);
 
 console.log('all tests are passed');

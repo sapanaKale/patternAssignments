@@ -64,4 +64,4 @@ const logTestCase = function (number,pattern,args,actualOutput,expectedOutput) {
 exports.getSerialNumber = getSerialNumber;
 exports.increaseSerialNumber = increaseSerialNumber;
 exports.logTestCase = logTestCase;
-
+exports.zipArray = zipArray;

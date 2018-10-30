@@ -25,14 +25,17 @@ const generateAlternatingRectangle = function (length,breadth) {
 
 const typesOfRectangle = {
   "filled": generateFilledRectangle,
+  "filled_rectangle":generateFilledRectangle,
   "empty": generateEmptyRectangle,
+  "empty_rectangle":generateEmptyRectangle,
   "alternating": generateAlternatingRectangle,
+  "alternating_rectangle":generateAlternatingRectangle
 }
 
 const generateRectangle = function (parameters) {
   let typeOfRectangle = parameters['type'];
   let length = parameters['length'];
-  let breadth = parameters['breadth'];
+  let breadth = +parameters['breadth'];
   let drawRectangle = typesOfRectangle[typeOfRectangle]; 
   return drawRectangle(length, breadth);
 }
@@ -61,7 +64,9 @@ const generateRATriangle = function (height) {
 
 const typesOfTriangle = {
   "left" : generateLATriangle,
+  "left_triangle": generateLATriangle,
   "right" : generateRATriangle,
+  "right_triangle": generateRATriangle
 }
 
 const generateTriangle = function (parameters) {
@@ -111,8 +116,11 @@ const generateAngledDiamond = function (height) {
 }
 
 typesOfDiamond = {"filled" :generateFilledDiamond, 
+                  "filled_diamond": generateFilledDiamond,
                   "hollow" :generateHollowDiamond, 
-                  "angled":generateAngledDiamond}
+                  "hollow_diamond": generateHollowDiamond,
+                  "angled":generateAngledDiamond,
+                  "angled_diamond": generateAngledDiamond}
 
 const generateDiamond = function (parameters) {
   let heightOfDiamond = parameters.height;
@@ -125,7 +133,27 @@ const generateDiamond = function (parameters) {
   return drawDiamond(height);
 }
 
+const typesOfPatterns = {'filled_rectangle':generateRectangle,
+                  'empty_rectangle':generateRectangle,
+                  'alternating_rectangle':generateRectangle,
+                  'right_triangle':generateTriangle,
+                  'left_triangle':generateTriangle,
+                  'filled_diamond':generateDiamond,
+                  'hollow_diamond':generateDiamond,
+                  'angled_diamond':generateDiamond
+};
 
+const generatePattern = function (parameters) {
+  let patterns = [];
+  for (let index=1; index<parameters.length; index++) {
+    pattern = typesOfPatterns[parameters[index]["type"]];
+    generatedPattern = pattern(parameters[index]);
+    patterns.push(generatedPattern);
+  }
+  return patterns[0];
+}
+
+exports.generatePattern = generatePattern;
 exports.generateDiamond = generateDiamond;
 exports.generateTriangle = generateTriangle;
 exports.generateRectangle = generateRectangle;

@@ -1,5 +1,5 @@
 const assert = require ('assert');
-const {generateRectangle,generateTriangle,generateDiamond} = require ('../src/patternsLibrary.js');
+const {generateRectangle, generateTriangle, generateDiamond, generatePattern} = require ('../src/patternsLibrary.js');
 const {logTestCase, getSerialNumber, increaseSerialNumber} = require ('./frameworkForTestfile.js');
 
 const testGenerateRectangle = function (parameters,expectedOutput) {
@@ -133,5 +133,56 @@ let angled_4 = ['  *  ',
                 ' \\ / ',
                 '  *  '];
 testGenerateDiamond({'type':"angled",'height':4},angled_4);
+
+const testGeneratePattern = function (parameters,expectedOutput) {
+  let number = getSerialNumber();
+  let pattern = "mergedPattern";
+  let args = "----"; 
+  let actualOutput = generatePattern(parameters);
+  logTestCase(number,pattern,args,expectedOutput,actualOutput);
+  assert.deepEqual(actualOutput,expectedOutput);
+  increaseSerialNumber();
+}
+
+let filled_rectangle_2_2 = ['**',
+                            '**'];
+testGeneratePattern(["normal",{'type':"filled_rectangle",'length':2,'breadth':2}],filled_rectangle_2_2)
+
+let left_triangle_3 = ['*  ',
+                       '** ',
+                       '***'];
+testGeneratePattern(["normal",{'type':"left_triangle","height":3}],left_triangle_3);
+
+let filled_rectangle_2_2_left_triangle_2 = ['** * ',
+                                            '** **'];
+testGeneratePattern(["normal",{'type':'filled_rectangle','length':2,'breadth':2},{'type':'left_triangle','height':2}],filled_rectangle_2_2_left_triangle_2);
+
+let empty_rectangle_3_4_right_triangle_4 = ['***    *',
+                                            '* *   **',
+                                            '* *  ***',
+                                            '*** ****'];
+testGeneratePattern(["normal",{'type':'empty_rectangle','length':3,'breadth':4},{'type':'right_triangle','height':4}],empty_rectangle_3_4_right_triangle_4);
+
+let left_triangle_2_alternating_rectangle_3_2 = ['*  ###',
+                                                 '** ***'];
+testGeneratePattern(["normal",{'type':'left_triangle','height':2},{'type':'alternating_rectangle','length':3,'breadth':2}],left_triangle_2_alternating_rectangle_3_2);
+
+let filled_diamond_5_left_triangle_5 = ['  *   *    ',
+                                        ' ***  **   ',
+                                        '***** ***  ',
+                                        ' ***  **** ',
+                                        '  *   *****'];
+testGeneratePattern(["normal",{'type':'filled_diamond','height':5},{'type':'left_triangle','height':5}],filled_diamond_5_left_triangle_5);
+
+let flip_left_triangle_3_right_triangle_3 = ['  * *  ',
+                                             ' ** ** ',
+                                             '*** ***'];
+testGeneratePattern(["flip",{'type':'left_triangle','height':3},{'type':'right_triangle','height':3}],flip_left_triangle_3_right_triangle_3);
+
+let mirror_left_triangle_4_right_triangle_4 = ['**** ****',
+                                               '***   ***',
+                                               '**     **',
+                                               '*       *'];
+testGeneratePattern(["mirror",{'type':'left_triangle','height':4},{'type':'right_triangle','height':4}],mirror_left_triangle_4_right_triangle_4);
 
 console.log('all tests are passed');
