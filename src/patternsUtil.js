@@ -38,12 +38,36 @@ const extractParameters = function (userArgs) {
   let type = userArgs[0];
   let length = +userArgs[1];
   let height = +userArgs[1];
-  let breadth = +userArgs[2];
+  let breadth = 0;
+  if (!(isNaN(+userArgs[2]))) { 
+    breadth = userArgs[2];
+  }
   return {'type':type,'length':length,'height':height,'breadth':breadth};
 }
 
 const convertToString = function (array) {
   return array.join("\n");
+}
+
+const zip = function (object, element) {
+  object.value[object.index] = [element,object.array[object.index]];
+  object.index++;
+  return object;
+}
+
+const compareArrayLength = function (source1, source2) {
+  let result = { smaller:source1, greater:source2};
+  if (source2.length < source1.length) {
+    result.smaller = source2;
+    result.greater = source1;
+  }
+  return result;
+}
+
+const zipArray = function (source1,source2) {
+  let smallerArray = compareArrayLength(source1,source2).smaller;
+  let greaterArray = compareArrayLength(source1,source2).greater;
+  return greaterArray.reduce(zip,{index:0,value:[],array:smallerArray}).value;
 }
 
 const extractMultipleParameters = function (userArgs) {
@@ -62,6 +86,7 @@ const extractMultipleParameters = function (userArgs) {
   return parameters;
 }
 
+exports.zipArray = zipArray;
 exports.extractMultipleParameters = extractMultipleParameters;
 exports.convertToString = convertToString;
 exports.alignLeft = alignLeft;

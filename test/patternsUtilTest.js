@@ -1,5 +1,5 @@
 const assert = require ('assert');
-const { repeatString, alignLeft, alignRight, alignCentre, generateLine, convertToString, extractParameters, extractMultipleParameters } = require ('../src/patternsUtil.js');
+const { repeatString, alignLeft, alignRight, alignCentre, generateLine, convertToString, extractParameters, extractMultipleParameters, zipArray } = require ('../src/patternsUtil.js');
 
 const testRepeatString = function (character, times, expectedOutput) {
   let actualOutput = repeatString(character, times);
@@ -73,15 +73,24 @@ const testExtractMultipleParameters = function (userArgs,expectedOutput) {
 testExtractMultipleParameters(['filled_rectangle',2,2],
                               ["normal",
                                {'type':'filled_rectangle','length':2,'height':2,'breadth':2}]);
- 
+
+let object1 = {'type':'filled_rectangle','length':2,'height':2,'breadth':2};
+let object2 = {'type':'left_triangle','length':2,'height':2,'breadth':0};
+
 testExtractMultipleParameters(['filled_rectangle',2,2,'left_triangle',2],
-                              ["normal",
-                               {'type':'filled_rectangle','length':2,'height':2,'breadth':2},
-                               {'type':'left_triangle','length':2,'height':2,'breadth':undefined}]);
+                              ["normal",object1,object2]);
 
 testExtractMultipleParameters(['flip','left_triangle',3,'right_triangle',3],
                               ["flip",
-                              {'type':'left_triangle','height':3},
-                              {'type':'right_triangle','height':3}]);
+                              {'type':'left_triangle','length':3,'height':3,'breadth':0},
+                              {'type':'right_triangle','length':3,'height':3,'breadth':0}]);
+
+const testZipArray = function (source1,source2,expectedOutput) {
+  let actualOutput = zipArray(source1,source2);
+  assert.deepEqual(actualOutput,expectedOutput);
+}
+
+testZipArray([1,2,3],[1,2,3],[[1,1],[2,2],[3,3]]);
+testZipArray([5,6],[5,6],[[5,5],[6,6]]);
 
 console.log('all tests are passed');

@@ -1,4 +1,4 @@
-const {repeatString, alignRight, alignLeft, alignCentre, generateLine} = require ('./patternsUtil.js');
+const {repeatString, alignRight, alignLeft, alignCentre, generateLine, zipArray} = require ('./patternsUtil.js');
 
 const generateFilledRectangle = function (length,breadth) {
   return new Array(breadth).fill(repeatString('*',length));
@@ -133,6 +133,19 @@ const generateDiamond = function (parameters) {
   return drawDiamond(height);
 }
 
+const generateFlipedPattern = function (source) {
+  let result = [];
+  for (let element of source) {
+    element = element.split("").reverse().join("");
+    result.push(element);
+  }
+  return result;
+}
+
+const generateMirrorPattern = function (source) {
+  return source.reverse();
+}
+
 const typesOfPatterns = {'filled_rectangle':generateRectangle,
                   'empty_rectangle':generateRectangle,
                   'alternating_rectangle':generateRectangle,
@@ -145,12 +158,30 @@ const typesOfPatterns = {'filled_rectangle':generateRectangle,
 
 const generatePattern = function (parameters) {
   let patterns = [];
+  let printMode = parameters[0];
   for (let index=1; index<parameters.length; index++) {
-    pattern = typesOfPatterns[parameters[index]["type"]];
-    generatedPattern = pattern(parameters[index]);
-    patterns.push(generatedPattern);
+    let pattern = typesOfPatterns[parameters[index]["type"]];
+    let generatedPattern = pattern(parameters[index]);
+    let patternToMerge = generatedPattern;
+    if (printMode == "flip") {
+      patternToMerge = generateFlipedPattern(generatedPattern);
+    }
+    if (printMode == 'mirror') {
+      patternToMerge = generateMirrorPattern(generatedPattern);
+    }  
+    patterns.push(patternToMerge);
   }
-  return patterns[0];
+  let mergedPattern = [];
+  patterns = patterns.reverse();
+  patterns = patterns.reduce(zipArray);
+  if (parameters.length == 2) {
+    return patterns;
+  }
+  for (let line of patterns) {
+    line = line.join(" ");
+    mergedPattern.push(line);
+  }
+  return mergedPattern;
 }
 
 exports.generatePattern = generatePattern;
